@@ -34,7 +34,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: src
-    - run: cat src/nuget.config
+    - run: cat nuget.config
     - name: Publish
       working-directory: src
       env:

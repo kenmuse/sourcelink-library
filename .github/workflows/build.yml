@@ -21,6 +21,7 @@ jobs:
       with:
         global-json-file: src/global.json
         cache: true
+        cache-dependency-path: src/packages.lock.json
     - name: Restore dependencies
       run: dotnet restore
       working-directory: src

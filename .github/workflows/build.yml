@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  packages: write
+  contents: read
+
 jobs:
   build:
 
@@ -34,7 +38,6 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: src
-    - run: cat /home/runner/work/sourcelink-library/nuget.config
     - name: Publish
       working-directory: src
       env:

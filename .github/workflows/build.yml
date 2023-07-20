@@ -1,4 +1,4 @@
-name: .NET
+name: Package Library
 
 on:
   push:
@@ -24,15 +24,14 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
       working-directory: src
-    - name: Build
-      run: dotnet build --no-restore
+    - name: Build & Pack
+      run: dotnet build --no-restore --configuration Release
       working-directory: src
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: src
-    - name: Pack
+    - name: Publish
       working-directory: src
       run: |
-        dotnet pack --configuration Release
         dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
         dotnet nuget push SourceLink-Library/bin/Release/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} -- source "github

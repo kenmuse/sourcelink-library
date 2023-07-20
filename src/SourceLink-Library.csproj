@@ -6,7 +6,7 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources> 
     <IncludeSymbols>true</IncludeSymbols> 
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <DebugType>portable</DebugType>
+    <DebugType>embedded</DebugType>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder> 
   </PropertyGroup>
   <PropertyGroup>
@@ -16,7 +16,7 @@
   <PropertyGroup>
     <PackageDescription>Demo library with SourceLink support</PackageDescription> 
     <PackageId>Muse.SourceLink.Library</PackageId>    
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Authors>Ken Muse</Authors>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>

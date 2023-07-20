@@ -21,10 +21,10 @@ jobs:
       with:
         global-json-file: src/global.json
         cache: true
-        cache-dependency-path: ${{ github.workspace}}/src/packages.lock.json
+        cache-dependency-path: src/packages.lock.json
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner}}/index.json
       env:
-        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NUGET_AUTH_TOKEN: ${{ github.token }}
     - name: Restore dependencies
       run: dotnet restore
       working-directory: src
@@ -34,6 +34,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: src
+    - run: cat src/nuget.config
     - name: Publish
       working-directory: src
       env:

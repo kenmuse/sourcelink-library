@@ -21,7 +21,10 @@ jobs:
       with:
         global-json-file: src/global.json
         cache: true
-        cache-dependency-path: src/packages.lock.json
+        cache-dependency-path: ${{ github.workspace}}/src/packages.lock.json
+        source-url: https://nuget.pkg.github.com/${{ github.repository_owner}}/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Restore dependencies
       run: dotnet restore
       working-directory: src
@@ -33,9 +36,8 @@ jobs:
       working-directory: src
     - name: Publish
       working-directory: src
+      env:
+        TOKEN: ${{ github.token }}
       run: |
         dotnet pack --no-restore --configuration Release -o ${{ runner.temp }}/publish
-        dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
-        dotnet nuget disable source nuget.org
-        dotnet nuget enable source nuget.org
-        dotnet nuget push ${{ runner.temp }}/publish/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+        dotnet nuget push ${{ runner.temp }}/publish/*.nupkg

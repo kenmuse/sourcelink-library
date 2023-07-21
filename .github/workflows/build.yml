@@ -38,11 +38,11 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: src
-    - name: Publish
+    - name: Pack
       working-directory: src
-      env:
-        TOKEN: ${{ github.token }}
-      run: |
-        dotnet pack --no-restore --configuration Release -o ${{ runner.temp }}/publish
-        dotnet nuget push ${{ runner.temp }}/publish/*.nupkg
-        # --api-key ${{ github.token }}
+      run: dotnet pack --no-restore --configuration Release -o ${{ runner.temp }}/publish
+    - name: Publish
+      if: ${{ github.event_name != 'pull_request' }}
+      working-directory: src
+      run: dotnet nuget push ${{ runner.temp }}/publish/*.nupkg
+
